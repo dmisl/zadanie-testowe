@@ -66,7 +66,7 @@ echo str_repeat("=", 100)."\n";
 
   // echo "2/4 Faktury połaczyły się\n";
 
-  // $pozycje_faktury_structure = "CREATE TABLE IF NOT EXISTS `pozycje_faktury` (
+  // $pozycje_faktury_structure = "CREATE TABLE `pozycje_faktury` (
   //   `id` int NOT NULL AUTO_INCREMENT,
   //   `nazwa_produktu` varchar(255) NOT NULL,
   //   `ilosc` int NOT NULL,
@@ -80,7 +80,7 @@ echo str_repeat("=", 100)."\n";
 
   // echo "3/4 Pozycjy faktury są\n";
 
-  // $platnosci_structure = "CREATE TABLE IF NOT EXISTS `platnosci` (
+  // $platnosci_structure = "CREATE TABLE `platnosci` (
   //   `id` int NOT NULL AUTO_INCREMENT,
   //   `tytul` varchar(255) NOT NULL,
   //   `kwota` decimal(10,2) NOT NULL,
@@ -124,24 +124,41 @@ echo str_repeat("=", 100)."\n";
   echo "2/4 Zapewniamy klientowskie faktury\n";
 
   // TWORZYMY PO 3 FAKTURY DLA KAŻDEGO KLIENTA
-    $result = $connection->query('SELECT id FROM klienci');
-    $faktury = [];
+    // $result = $connection->query('SELECT id FROM klienci');
+    // $faktury = [];
+    // while($row = mysqli_fetch_assoc($result))
+    // {
+    //   for ($i = 0; $i < 3; $i++) {
+    //     $rok = date('Y');
+    //     $miesiac = date('m');
+    //     $numerPorzadkowy = str_pad(count($faktury)+1, 4, '0', STR_PAD_LEFT);
+
+    //     $numer = "FV/$rok/$miesiac/$numerPorzadkowy";
+    //     $data_wystawienia = $faker->date();
+    //     $termin_platnosci = date('Y-m-d', strtotime($data_wystawienia . ' + 14 days'));
+    //     $suma_brutto = $faker->randomFloat(2, 100, 1000);
+
+    //     $faktury[] = "('$numer', '$data_wystawienia', '$termin_platnosci', '$suma_brutto', {$row['id']})";
+    //   }
+    // }
+    // $connection->query("INSERT INTO faktury (numer, data_wystawienia, termin_platnosci, suma_brutto, klient_id) VALUES " . implode(", ", $faktury));
+
+  echo "3/4 Zapewniamy klientowskie faktury\n";
+  // DLA KAŻDEJ FAKTURY TWORZYMY JĄ POZYCJE
+    $result = $connection->query('SELECT numer FROM faktury');
+    $pozycje_faktur = [];
     while($row = mysqli_fetch_assoc($result))
     {
-      for ($i = 0; $i < 3; $i++) {
-        $rok = date('Y');
-        $miesiac = date('m');
-        $numerPorzadkowy = str_pad(count($faktury)+1, 4, '0', STR_PAD_LEFT);
-
-        $numer = "FV/$rok/$miesiac/$numerPorzadkowy";
-        $data_wystawienia = $faker->date();
-        $termin_platnosci = date('Y-m-d', strtotime($data_wystawienia . ' + 14 days'));
-        $suma_brutto = $faker->randomFloat(2, 100, 1000);
-
-        $faktury[] = "('$numer', '$data_wystawienia', '$termin_platnosci', '$suma_brutto', {$row['id']})";
+      $ilosc_pozycji = rand(1, 3);
+      for ($i = 0; $i < $ilosc_pozycji; $i++) {
+          $nazwa_produktu = $faker->word();
+          $ilosc = rand(1, 10);
+          $cena = $faker->randomFloat(2, 10, 500);
+  
+          $pozycje_faktur[] = "('$nazwa_produktu', $ilosc, $cena, '{$row['numer']}')";
       }
     }
-    $connection->query("INSERT INTO faktury (numer, data_wystawienia, termin_platnosci, suma_brutto, klient_id) VALUES " . implode(", ", $faktury));
+    $connection->query("INSERT INTO pozycje_faktury (nazwa_produktu, ilosc, cena, numer_faktury) VALUES " . implode(", ", $pozycje_faktur));
 
 // ZAMYKAMY POŁĄCZENIE
   $connection->close();
