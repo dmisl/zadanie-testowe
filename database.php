@@ -106,6 +106,7 @@ echo str_repeat("=", 100)."\n";
   echo "\n\n".str_repeat("=", 100)."\n\n";
   echo "Zapewniamy tabele przykładowymi danymi\n";
   echo "1/4 Zapewniamy klientów\n";
+
   // KORZYSTAJAC Z FAKERA TWORZYMY 20 KLIENTÓW
     $faker = Faker\Factory::create();
 
@@ -118,16 +119,29 @@ echo str_repeat("=", 100)."\n";
     //   $klienci[] = "('" . $faker->userName() . "', '" . $accountNumber . "', '" . str_pad(rand(0, 9999999999), 10, '0', STR_PAD_LEFT) . "')";
     // }
 
-    // $query = "INSERT INTO klienci (login, konto_bankowe, NIP) VALUES " . implode(", ", $klienci);
-    // $connection->query($query);
-  // TWORZYMY PO 3 FAKTURY DLA KAŻDEGO KLIENTA
-  $result = $connection->query('SELECT id FROM klienci');
-  while($row = mysqli_fetch_assoc($result))
-  {
-    echo $row['id'];
-  }
+    // $connection->query("INSERT INTO klienci (login, konto_bankowe, NIP) VALUES " . implode(", ", $klienci));
 
   echo "2/4 Zapewniamy klientowskie faktury\n";
+
+  // TWORZYMY PO 3 FAKTURY DLA KAŻDEGO KLIENTA
+    $result = $connection->query('SELECT id FROM klienci');
+    $faktury = [];
+    while($row = mysqli_fetch_assoc($result))
+    {
+      for ($i = 0; $i < 3; $i++) {
+        $rok = date('Y');
+        $miesiac = date('m');
+        $numerPorzadkowy = str_pad(count($faktury)+1, 4, '0', STR_PAD_LEFT);
+
+        $numer = "FV/$rok/$miesiac/$numerPorzadkowy";
+        $data_wystawienia = $faker->date();
+        $termin_platnosci = date('Y-m-d', strtotime($data_wystawienia . ' + 14 days'));
+        $suma_brutto = $faker->randomFloat(2, 100, 1000);
+
+        $faktury[] = "('$numer', '$data_wystawienia', '$termin_platnosci', '$suma_brutto', {$row['id']})";
+      }
+    }
+    $connection->query("INSERT INTO faktury (numer, data_wystawienia, termin_platnosci, suma_brutto, klient_id) VALUES " . implode(", ", $faktury));
 
 // ZAMYKAMY POŁĄCZENIE
   $connection->close();
