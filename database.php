@@ -1,6 +1,16 @@
 <?php
 
-require 'vendor/autoload.php';
+$faker_path = 'vendor/autoload.php';
+
+if(is_file($faker_path))
+{
+  include $faker_path;
+} else
+{
+  exec('php composer.phar update');
+  exec('php composer.phar install');
+  include $faker_path;
+}
 
 echo str_repeat("=", 100)."\n";
 echo "Przede wszystkim w przypadku wystąpienia błędu proszę państwo zmienić ustawinia połączenia z serwerem w pliku database.php\n";
@@ -145,20 +155,20 @@ echo str_repeat("=", 100)."\n";
 
   echo "3/4 Zapewniamy klientowskie faktury\n";
   // DLA KAŻDEJ FAKTURY TWORZYMY JĄ POZYCJE
-    $result = $connection->query('SELECT numer FROM faktury');
-    $pozycje_faktur = [];
-    while($row = mysqli_fetch_assoc($result))
-    {
-      $ilosc_pozycji = rand(1, 3);
-      for ($i = 0; $i < $ilosc_pozycji; $i++) {
-          $nazwa_produktu = $faker->word();
-          $ilosc = rand(1, 10);
-          $cena = $faker->randomFloat(2, 10, 500);
+    // $result = $connection->query('SELECT numer FROM faktury');
+    // $pozycje_faktur = [];
+    // while($row = mysqli_fetch_assoc($result))
+    // {
+    //   $ilosc_pozycji = rand(1, 3);
+    //   for ($i = 0; $i < $ilosc_pozycji; $i++) {
+    //       $nazwa_produktu = $faker->word();
+    //       $ilosc = rand(1, 10);
+    //       $cena = $faker->randomFloat(2, 10, 500);
   
-          $pozycje_faktur[] = "('$nazwa_produktu', $ilosc, $cena, '{$row['numer']}')";
-      }
-    }
-    $connection->query("INSERT INTO pozycje_faktury (nazwa_produktu, ilosc, cena, numer_faktury) VALUES " . implode(", ", $pozycje_faktur));
+    //       $pozycje_faktur[] = "('$nazwa_produktu', $ilosc, $cena, '{$row['numer']}')";
+    //   }
+    // }
+    // $connection->query("INSERT INTO pozycje_faktury (nazwa_produktu, ilosc, cena, numer_faktury) VALUES " . implode(", ", $pozycje_faktur));
 
 // ZAMYKAMY POŁĄCZENIE
   $connection->close();
