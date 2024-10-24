@@ -9,6 +9,10 @@ class HomeController
 {
     public function index(): ResponseInterface 
     {
-        return new Response(200, [], 'Welcome to the Show Page');
+        ob_start();
+        require __DIR__ . '/../View/home.php';
+        $body = ob_get_clean();
+
+        return new Response(200, [], $body);
     }
 }

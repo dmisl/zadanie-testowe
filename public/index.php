@@ -14,7 +14,7 @@ use App\Controller\ShowController;
 $request = ServerRequest::fromGlobals();
 
 $path = $request->getUri()->getPath();
-$basePath = '/zadanie-testowe/public';
+$basePath = '/zadanie-testowe';
 
 if (strpos($path, $basePath) === 0) {
     $path = substr($path, strlen($basePath));
