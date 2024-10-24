@@ -11,7 +11,15 @@
 
     <div class="parent">
 
-        <div class="account_badge" style="position: absolute; right: 66px; top: 32px; width: 400px; height: 100px; background-color: black; z-index: 1000;"></div>
+        <div class="account__badge__parent">
+            <div class="account__badge">
+                <img class="avatar" src="img/avatar.jpg">
+                <select class="form-select">
+                    <option value="">Ivan Something</option>
+                </select>
+                <p class="hint">zmień konto</p>
+            </div>
+        </div>
     
         <div class="menu">
     
