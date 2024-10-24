@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\ServerRequest;
@@ -20,12 +20,23 @@ if (strpos($path, $basePath) === 0) {
     $path = substr($path, strlen($basePath));
 }
 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['user_id'] = 1;
+}
+
+define('ROOT_PATH', dirname(__DIR__));
+
 $response = new Response();
 
 switch ($path) {
     case '/':
         $controller = new HomeController();
         $response = $controller->index();
+        break;
+    case '/auth':
+        $controller = new HomeController();
+        $response = $controller->auth($request);
         break;
     case '/show':
         $controller = new ShowController();
