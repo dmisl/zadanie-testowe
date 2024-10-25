@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use App\Controller\ContractController;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\ServerRequest;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
@@ -49,6 +50,10 @@ switch ($path) {
     case '/zalegle':
         $controller = new ShowController();
         $response = $controller->zalegle($request);
+        break;
+    case '/contract':
+        $controller = new ContractController();
+        $response = $controller->index($request);
         break;
 }
 

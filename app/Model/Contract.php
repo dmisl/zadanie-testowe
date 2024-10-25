@@ -6,7 +6,7 @@ class Contract
 {
     private $connection;
 
-    public function __construct(array $config)
+    public function __construct()
     {
         $this->connection = new Database();
     }

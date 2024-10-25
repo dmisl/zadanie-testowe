@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Http\Message\ResponseInterface;
 
-class HomeController
+class ContractController
 {
     public function index($request): ResponseInterface 
     {
