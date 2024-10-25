@@ -1,6 +1,6 @@
 ### Pierwsze zadanie
 
-Proszę stworzyć bazę danych, na to są 2 sposoby
+Proszę stworzyć bazę danych, na to są 2 sposoby <br>
 1 - Ręcznie - zaimportować plik zadanie.sql
 ```
 zaimportowac plik do serwera z bazami danych
