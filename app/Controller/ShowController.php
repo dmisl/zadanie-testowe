@@ -41,4 +41,16 @@ class ShowController
 
         return new Response(200, [], $body);
     }
+    public function zalegle(): ResponseInterface 
+    {
+        $user_model = new Klient();
+        $users = $user_model->all();
+        $zalegle = $user_model->zalegle();
+
+        ob_start();
+        require __DIR__ . '/../View/zalegle.php';
+        $body = ob_get_clean();
+
+        return new Response(200, [], $body);
+    }
 }

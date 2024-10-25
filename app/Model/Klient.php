@@ -50,4 +50,10 @@ class Klient {
         return $this->wplaczic()-$this->wplacono();
     }
 
+    public function zalegle()
+    {
+        $zalegle = $this->connection->query("SELECT faktury.*, SUM(platnosci.kwota) FROM faktury LEFT JOIN platnosci ON faktury.numer = platnosci.numer_faktury WHERE faktury.klient_id = {$_SESSION['user_id']} GROUP BY faktury.numer HAVING SUM(platnosci.kwota) < faktury.suma_brutto;");
+        return $zalegle;
+    }
+
 }

@@ -46,6 +46,10 @@ switch ($path) {
         $controller = new ShowController();
         $response = $controller->niedoplaty();
         break;
+    case '/zalegle':
+        $controller = new ShowController();
+        $response = $controller->zalegle();
+        break;
 }
 
 $emitter = new SapiEmitter();

@@ -94,7 +94,7 @@ echo str_repeat("=", 100)."\n\n";
     `kwota` decimal(10,2) NOT NULL,
     `data_wplaty` date NOT NULL,
     `numer_konta` varchar(28) NOT NULL,
-    `numer_faktury` varchar(50) NOT NULL,
+    `numer_faktury` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
     PRIMARY KEY (`id`),
     KEY `numer_faktury` (`numer_faktury`)
   )";
