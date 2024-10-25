@@ -147,7 +147,7 @@ echo str_repeat("=", 100)."\n\n";
     }
     $connection->query("INSERT INTO faktury (numer, data_wystawienia, termin_platnosci, suma_brutto, klient_id) VALUES " . implode(", ", $faktury));
 
-  echo "3/4 Zapewniamy klientowskie faktury\n";
+  echo "3/4 Zapewniamy klientowskie pozycje faktur\n";
   // DLA KAŻDEJ FAKTURY TWORZYMY JĄ POZYCJE
     $result = $connection->query('SELECT numer FROM faktury');
     $pozycje_faktur = [];
