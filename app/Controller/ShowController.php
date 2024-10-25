@@ -9,15 +9,22 @@ use Psr\Http\Message\ResponseInterface;
 
 class ShowController
 {
-    public function nadplaty(): ResponseInterface 
+    public function nadplaty($request): ResponseInterface 
     {
         $user_model = new Klient();
+        $connection = new Database();
+        if(isset($request->getParsedBody()['sort']))
+        {
+            $data = $connection->query("SELECT * FROM platnosci JOIN faktury ON faktury.numer = platnosci.numer_faktury WHERE faktury.klient_id = {$_SESSION['user_id']} ORDER BY numer {$request->getParsedBody()['sort']};");
+        } else
+        {
+            $data = $connection->query("SELECT * FROM platnosci JOIN faktury ON faktury.numer = platnosci.numer_faktury WHERE faktury.klient_id = {$_SESSION['user_id']};");
+        }
         $users = $user_model->all();
         $nadplaty = $user_model->nadplaty();
         $wplaczic = $user_model->wplaczic();
         $wplacono = $user_model->wplacono();
-        $connection = new Database();
-        $data = $connection->query("SELECT * FROM platnosci JOIN faktury ON faktury.numer = platnosci.numer_faktury WHERE faktury.klient_id = {$_SESSION['user_id']};");
+        
 
         ob_start();
         require __DIR__ . '/../View/nadplaty.php';

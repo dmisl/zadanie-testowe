@@ -33,7 +33,15 @@
         <a href="/<?=basename(ROOT_PATH)?>">back</a>
         <div class="nadplaty_content">
 
-            <h1 class="title">Nadpłaty na koncie: <?=$nadplaty <= 0 ? "<span>0.00 PLN</span>" : "<span>$nadplaty PLN</span>"?></h1>
+            <div class="d-flex">
+                <h1 class="title">Nadpłaty na koncie: <?=$nadplaty <= 0 ? "<span>0.00 PLN</span>" : "<span>$nadplaty PLN</span>"?></h1>
+                <form action="nadplaty" method="POST">
+                    <button name="sort" value="ASC" style="margin-top: 30px; margin-left: 50px;">sort asc</button>
+                </form>
+                <form action="nadplaty" method="POST">
+                    <button name="sort" value="DESC" style="margin-top: 30px; margin-left: 50px;">sort desc</button>
+                </form>
+            </div>
 
             <table class="wplaczic">
                 <tr>

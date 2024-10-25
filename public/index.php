@@ -40,7 +40,7 @@ switch ($path) {
         break;
     case '/nadplaty':
         $controller = new ShowController();
-        $response = $controller->nadplaty();
+        $response = $controller->nadplaty($request);
         break;
     case '/niedoplaty':
         $controller = new ShowController();
