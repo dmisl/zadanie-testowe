@@ -12,7 +12,6 @@ class HomeController
     public function index(): ResponseInterface 
     {
         $user_model = new Klient();
-        return new Response(200, [], var_dump($user_model->nadplaty()));
         $users = $user_model->all();
 
         ob_start();

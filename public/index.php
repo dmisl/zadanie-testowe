@@ -38,9 +38,9 @@ switch ($path) {
         $controller = new HomeController();
         $response = $controller->auth($request);
         break;
-    case '/show':
+    case '/nadplaty':
         $controller = new ShowController();
-        $response = $controller->index();
+        $response = $controller->nadplaty();
         break;
 }
 
