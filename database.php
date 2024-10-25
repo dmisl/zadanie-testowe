@@ -173,11 +173,11 @@ echo str_repeat("=", 100)."\n\n";
     while ($row = mysqli_fetch_assoc($result)) {
       $tytul = "Jakiś tytuł wpisany przez klienta";
       $kwota = round($row['kwota']*rand(5,15)/10, 2); // dodajemy losową kwotę którą klient zapłacił
-      $data_wplaty = $row['data_wplaty'];
+      $data_wplaty = $faker->date();
       $numer_konta = $row['numer_konta'];
       $numer_faktury = $row['numer_faktury'];
 
-      $platnosci[] = "('$tytul', $kwota, $data_wplaty, '$numer_konta', '$numer_faktury')";
+      $platnosci[] = "('$tytul', $kwota, '$data_wplaty', '$numer_konta', '$numer_faktury')";
     }
     $connection->query("INSERT INTO platnosci (tytul, kwota, data_wplaty, numer_konta, numer_faktury) VALUES " . implode(", ", $platnosci));
 
