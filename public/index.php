@@ -42,6 +42,10 @@ switch ($path) {
         $controller = new ShowController();
         $response = $controller->nadplaty();
         break;
+    case '/niedoplaty':
+        $controller = new ShowController();
+        $response = $controller->niedoplaty();
+        break;
 }
 
 $emitter = new SapiEmitter();

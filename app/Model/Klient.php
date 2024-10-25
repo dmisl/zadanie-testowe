@@ -42,9 +42,12 @@ class Klient {
 
     public function nadplaty()
     {
-        $wplaczic = $this->connection->query("SELECT SUM(faktury.suma_brutto) AS wplaczic FROM faktury WHERE faktury.klient_id = {$_SESSION['user_id']};")->fetch_assoc()['wplaczic'];
-        $wplacono = $this->connection->query("SELECT SUM(platnosci.kwota) AS wplacono FROM platnosci JOIN faktury ON faktury.numer = platnosci.numer_faktury WHERE faktury.klient_id = {$_SESSION['user_id']};")->fetch_assoc()['wplacono'];
-        return $wplacono-$wplaczic;
+        return $this->wplacono()-$this->wplaczic();
+    }
+
+    public function niedoplaty()
+    {
+        return $this->wplaczic()-$this->wplacono();
     }
 
 }

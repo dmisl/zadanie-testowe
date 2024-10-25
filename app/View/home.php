@@ -32,12 +32,12 @@
     
         <div class="menu">
     
-            <div class="menu__element" style="background-color: #5AFF5A; margin-top: 51px;">
+            <a href="/<?=basename(ROOT_PATH)?>/nadplaty" class="menu__element" style="background-color: #5AFF5A; margin-top: 51px;">
                 <p>Moje nadpłaty na koncie</p>
-            </div>
-            <div class="menu__element" style="background-color: #FF6767;">
+            </a>
+            <a href="/<?=basename(ROOT_PATH)?>/niedoplaty" class="menu__element" style="background-color: #FF6767;">
                 <p>Niedopłaty za faktury</p>    
-            </div>
+            </a>
             <div class="menu__element" style="background-color: #FFD95A;">
                 <p>Zaległe faktury</p>
             </div>

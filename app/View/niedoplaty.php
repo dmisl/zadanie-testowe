@@ -33,7 +33,7 @@
         <a href="/<?=basename(ROOT_PATH)?>">back</a>
         <div class="nadplaty_content">
 
-            <h1 class="title">Nadpłaty na koncie: <?=$nadplaty <= 0 ? "<span>0.00 PLN</span>" : "<span>$nadplaty PLN</span>"?></h1>
+            <h1 class="title">Niedopłaty na koncie: <?=$niedoplaty <= 0 ? "<span style='color: red;'>0.00 PLN</span>" : "<span style='color: red;'>$niedoplaty PLN</span>"?></h1>
 
             <table class="wplaczic">
                 <tr>
