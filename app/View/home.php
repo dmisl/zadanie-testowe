@@ -38,9 +38,9 @@
             <a href="/<?=basename(ROOT_PATH)?>/niedoplaty" class="menu__element" style="background-color: #FF6767;">
                 <p>Niedopłaty za faktury</p>    
             </a>
-            <div class="menu__element" style="background-color: #FFD95A;">
+            <a href="/<?=basename(ROOT_PATH)?>/zalegle" class="menu__element" style="background-color: #FFD95A;">
                 <p>Zaległe faktury</p>
-            </div>
+            </a>
     
             <p class="hint">Kliknij, żeby zobaczyć więcej</p>
     
