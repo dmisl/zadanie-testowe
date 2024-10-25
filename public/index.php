@@ -44,11 +44,11 @@ switch ($path) {
         break;
     case '/niedoplaty':
         $controller = new ShowController();
-        $response = $controller->niedoplaty();
+        $response = $controller->niedoplaty($request);
         break;
     case '/zalegle':
         $controller = new ShowController();
-        $response = $controller->zalegle();
+        $response = $controller->zalegle($request);
         break;
 }
 

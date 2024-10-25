@@ -32,15 +32,21 @@ class ShowController
 
         return new Response(200, [], $body);
     }
-    public function niedoplaty(): ResponseInterface 
+    public function niedoplaty($request): ResponseInterface 
     {
         $user_model = new Klient();
+        $connection = new Database();
+        if(isset($request->getParsedBody()['sort']))
+        {
+            $data = $connection->query("SELECT * FROM platnosci JOIN faktury ON faktury.numer = platnosci.numer_faktury WHERE faktury.klient_id = {$_SESSION['user_id']} ORDER BY numer {$request->getParsedBody()['sort']};");
+        } else
+        {
+            $data = $connection->query("SELECT * FROM platnosci JOIN faktury ON faktury.numer = platnosci.numer_faktury WHERE faktury.klient_id = {$_SESSION['user_id']};");
+        }
         $users = $user_model->all();
         $niedoplaty = $user_model->niedoplaty();
         $wplaczic = $user_model->wplaczic();
         $wplacono = $user_model->wplacono();
-        $connection = new Database();
-        $data = $connection->query("SELECT * FROM platnosci JOIN faktury ON faktury.numer = platnosci.numer_faktury WHERE faktury.klient_id = {$_SESSION['user_id']};");
 
         ob_start();
         require __DIR__ . '/../View/niedoplaty.php';
@@ -48,11 +54,17 @@ class ShowController
 
         return new Response(200, [], $body);
     }
-    public function zalegle(): ResponseInterface 
+    public function zalegle($request): ResponseInterface 
     {
         $user_model = new Klient();
         $users = $user_model->all();
-        $zalegle = $user_model->zalegle();
+        if(isset($request->getParsedBody()['sort']))
+        {
+            $zalegle = $user_model->zalegle($request->getParsedBody()['sort']);
+        } else
+        {
+            $zalegle = $user_model->zalegle();
+        }
 
         ob_start();
         require __DIR__ . '/../View/zalegle.php';

@@ -33,7 +33,15 @@
         <a href="/<?=basename(ROOT_PATH)?>">back</a>
         <div class="nadplaty_content">
 
-            <h1 class="title">Zalegwych faktur: <?=$zalegle->num_rows?></h1>
+            <div class="d-flex">
+                <h1 class="title">Zalegwych faktur: <?=$zalegle->num_rows?></h1>
+                <form action="zalegle" method="POST">
+                    <button name="sort" value="ASC" style="margin-top: 30px; margin-left: 50px;">sort asc</button>
+                </form>
+                <form action="zalegle" method="POST">
+                    <button name="sort" value="DESC" style="margin-top: 30px; margin-left: 50px;">sort desc</button>
+                </form>
+            </div>
             
             <table class="wplaczic">
                 <tr>
